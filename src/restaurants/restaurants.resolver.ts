@@ -1,35 +1,28 @@
-import { Inject } from '@nestjs/common';
-import {
-  Args,
-  Context,
-  Field,
-  InputType,
-  registerEnumType,
-  Resolver,
-  Query,
-} from '@nestjs/graphql';
-import 'reflect-metadata';
-import { PrismaService } from 'src/prisma.service';
-import { Restaurant } from './restaurant';
+import { Resolver, Query, Args } from '@nestjs/graphql';
+import { Restaurant } from 'src/graphql';
+import { RestaurantService } from './restaurant.service';
 
-@Resolver(Restaurant)
-export class RestaurantResolver {
-  constructor(@Inject(PrismaService) private prismaService: PrismaService) {}
+@Resolver('Restaurant')
+export class RestaurantResolvers {
+  constructor(private readonly restaurantService: RestaurantService) {}
 
-  @Query((returns) => [Restaurant])
-  seeRestaurants(
-    @Args('area', { nullable: true }) area: string,
-    @Args('city', { nullable: true }) city: string,
-    @Args('foodType', { nullable: true }) foodType: string,
-    @Args('mainFood', { nullable: true }) mainFood: string,
-    @Args('skip', { nullable: true }) skip: number,
-    @Args('take', { nullable: true }) take: number,
-    @Context() ctx,
+  @Query('restaurant')
+  async restaurant(@Args('id') args: string) {
+    return this.restaurantService.restaurant(args);
+  }
+
+  @Query('seeRestaurants')
+  async seeRestaurants(
+    @Args('area') area: string,
+    @Args('city') city: string,
+    @Args('foodType') foodType: string,
+    @Args('mainFood') mainFood: string,
   ) {
-    return this.prismaService.restaurant.findMany({
-      where: { area, city, foodType, mainFood },
-      take: take || undefined,
-      skip: skip || undefined,
-    });
+    return this.restaurantService.seeRestaurants(
+      area,
+      city,
+      foodType,
+      mainFood,
+    );
   }
 }

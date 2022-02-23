@@ -1,0 +1,18 @@
+type Restaurant {
+  id: ID!
+  area: String!
+  city: String!
+  foodType: String!
+  mainFood: String
+  name: String!
+}
+
+type Query {
+  restaurant(id: ID!): Restaurant
+  seeRestaurants(
+    area: String
+    city: String
+    foodType: String
+    mainFood: String
+  ): [Restaurant!]!
+}

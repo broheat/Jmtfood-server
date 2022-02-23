@@ -4,29 +4,25 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaService } from './prisma.service';
-import { RestaurantResolver } from './restaurants/restaurants.resolver';
+import { RestaurantResolvers } from './restaurants/restaurants.resolver';
+import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
+import { RestaurantService } from './restaurants/restaurant.service';
 
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: 'schema.gql',
+      playground: false,
+      plugins: [ApolloServerPluginLandingPageLocalDefault()],
+      typePaths: ['./**/*.graphql'],
     }),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: process.env.NODE_ENV === 'dev' ? '.env.dev' : '.env.test',
       ignoreEnvFile: process.env.NODE_ENV === 'prod',
-      validationSchema: Joi.object({
-        NODE_ENV: Joi.string().valid('dev', 'prod').required(),
-        DB_HOST: Joi.string().required(),
-        DB_PORT: Joi.number().required(),
-        DB_USERNAME: Joi.string().required(),
-        DB_PASSWORD: Joi.string().required(),
-        DB_NAME: Joi.string().required(),
-      }),
     }),
   ],
   controllers: [],
-  providers: [PrismaService, RestaurantResolver],
+  providers: [PrismaService, RestaurantResolvers, RestaurantService],
 })
 export class AppModule {}

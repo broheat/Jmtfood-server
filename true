@@ -2,7 +2,7 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Restaurant {
+type RestaurantType {
   id: Int!
   area: String!
   city: String!
@@ -12,5 +12,5 @@ type Restaurant {
 }
 
 type Query {
-  seeRestaurants(area: String, city: String, foodType: String, mainFood: String, skip: Float, take: Float): [Restaurant!]!
+  seeRestaurants(area: String, city: String, foodType: String, mainFood: String, skip: Float, take: Float): [RestaurantType!]!
 }
