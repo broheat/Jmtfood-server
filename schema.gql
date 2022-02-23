@@ -1,0 +1,21 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Restaurant {
+  id: Int!
+  area: String!
+  city: String!
+  foodType: String!
+  mainFood: String!
+  name: String!
+}
+
+type seeRestaurantsResult {
+  ok: Boolean!
+  restaurant: [Restaurant!]!
+}
+
+type Query {
+  seeRestaurants(area: String, city: String, foodType: String, mainFood: String): seeRestaurantsResult!
+}
