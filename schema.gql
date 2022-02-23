@@ -7,15 +7,10 @@ type Restaurant {
   area: String!
   city: String!
   foodType: String!
-  mainFood: String!
+  mainFood: String
   name: String!
 }
 
-type seeRestaurantsResult {
-  ok: Boolean!
-  restaurant: [Restaurant!]!
-}
-
 type Query {
-  seeRestaurants(area: String, city: String, foodType: String, mainFood: String): seeRestaurantsResult!
+  seeRestaurants(area: String, city: String, foodType: String, mainFood: String, skip: Float, take: Float): [Restaurant!]!
 }

@@ -2,9 +2,9 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import * as Joi from 'joi';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { RestaurantsModule } from './restaurants/restaurants.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { PrismaService } from './prisma.service';
+import { RestaurantResolver } from './restaurants/restaurants.resolver';
 
 @Module({
   imports: [
@@ -25,19 +25,8 @@ import { ConfigModule } from '@nestjs/config';
         DB_NAME: Joi.string().required(),
       }),
     }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.DB_HOST,
-      port: +process.env.DB_PORT,
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-      entities: ['dist/**/*.entity{.ts,.js}'],
-      synchronize: true,
-    }),
-    RestaurantsModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [PrismaService, RestaurantResolver],
 })
 export class AppModule {}
