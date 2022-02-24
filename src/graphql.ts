@@ -7,6 +7,10 @@
 
 /* tslint:disable */
 /* eslint-disable */
+export abstract class IMutation {
+    abstract kakaoLogin(accessToken: string): Nullable<string> | Promise<Nullable<string>>;
+}
+
 export class Restaurant {
     id: string;
     area: string;

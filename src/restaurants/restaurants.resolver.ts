@@ -1,5 +1,4 @@
 import { Resolver, Query, Args } from '@nestjs/graphql';
-import { Restaurant } from 'src/graphql';
 import { RestaurantService } from './restaurant.service';
 
 @Resolver('Restaurant')

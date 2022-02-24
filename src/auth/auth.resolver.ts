@@ -1,6 +1,15 @@
-import { PrismaService } from 'src/prisma.service';
-import { Inject } from '@nestjs/common';
+import { Resolver, Mutation, Args } from '@nestjs/graphql';
+import { AuthService } from './auth.service';
 
-export class AuthResolver {
-  constructor(@Inject(PrismaService) private prismaService: PrismaService) {}
+@Resolver('Auth')
+export class AuthResolvers {
+  constructor(private authService: AuthService) {}
+
+  @Mutation('kakaoLogin')
+  async kakaoLogin(
+    context: object,
+    @Args('accessToken') accessToken: string,
+  ): Promise<string> {
+    return await this.authService.kakaoLogin(accessToken);
+  }
 }
