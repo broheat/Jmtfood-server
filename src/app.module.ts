@@ -5,16 +5,27 @@ import { ConfigModule } from '@nestjs/config';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { RestaurantModule } from './restaurants/restaurant.module';
 import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
     RestaurantModule,
     AuthModule,
+    UserModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
+      buildSchemaOptions: { dateScalarMode: 'isoDate' },
       playground: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
       typePaths: ['./**/*.graphql'],
+      context: ({ req, connection }) => {
+        if (req) {
+          const token = req.headers.authorization;
+          return { ...req, token };
+        } else {
+          return connection;
+        }
+      },
     }),
     ConfigModule.forRoot({
       isGlobal: true,

@@ -24,6 +24,17 @@ export abstract class IQuery {
     abstract restaurant(id: string): Nullable<Restaurant> | Promise<Nullable<Restaurant>>;
 
     abstract seeRestaurants(area?: Nullable<string>, city?: Nullable<string>, foodType?: Nullable<string>, mainFood?: Nullable<string>): Restaurant[] | Promise<Restaurant[]>;
+
+    abstract getUser(): Nullable<User> | Promise<Nullable<User>>;
 }
 
+export class User {
+    id: string;
+    kakaoId: number;
+    userName: string;
+    createdAt: DateTime;
+    updatedAt: DateTime;
+}
+
+export type DateTime = any;
 type Nullable<T> = T | null;

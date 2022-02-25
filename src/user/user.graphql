@@ -1,0 +1,13 @@
+scalar DateTime
+
+type User {
+  id: ID!
+  kakaoId: Int!
+  userName: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Query {
+  getUser: User
+}
