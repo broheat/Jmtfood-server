@@ -5,7 +5,7 @@ import { AuthService } from './auth.service';
 export class AuthResolvers {
   constructor(private authService: AuthService) {}
 
-  @Mutation('kakaoLogin')
+  @Mutation((returns) => String)
   async kakaoLogin(@Args('accessToken') accessToken: string): Promise<string> {
     return await this.authService.kakaoLogin(accessToken);
   }

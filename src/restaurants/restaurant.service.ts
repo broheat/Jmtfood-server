@@ -13,6 +13,7 @@ export class RestaurantService {
       },
     });
   }
+
   async seeRestaurants(
     area: string,
     city: string,

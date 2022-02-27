@@ -19,7 +19,7 @@ import { GqlAuthGuard } from './auth/auth.guard';
       buildSchemaOptions: { dateScalarMode: 'isoDate' },
       playground: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
-      typePaths: ['./**/*.graphql'],
+      autoSchemaFile: 'schema.gql',
       context: ({ req, connection }) => {
         if (req) {
           const token = req.headers.authorization;
