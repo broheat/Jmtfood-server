@@ -15,7 +15,7 @@ export class User {
   createdAt: Date;
 
   @Field((type) => Date)
-  updateAt: Date;
+  updatedAt: Date;
 }
 
 @ObjectType()

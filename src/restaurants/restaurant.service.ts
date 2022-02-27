@@ -6,10 +6,10 @@ import { PrismaService } from 'src/prisma.service';
 export class RestaurantService {
   constructor(private prisma: PrismaService) {}
 
-  async restaurant(id: string): Promise<Restaurant | null> {
+  async restaurant(id: number): Promise<Restaurant | null> {
     return this.prisma.restaurant.findUnique({
       where: {
-        id: parseInt(id),
+        id,
       },
     });
   }

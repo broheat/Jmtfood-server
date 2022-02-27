@@ -7,8 +7,8 @@ export class RestaurantResolvers {
   constructor(private readonly restaurantService: RestaurantService) {}
 
   @Query((returns) => Restaurant)
-  async restaurant(@Args('id') args: string) {
-    return this.restaurantService.restaurant(args);
+  async restaurant(@Args('id') id: number) {
+    return this.restaurantService.restaurant(id);
   }
 
   @Query((returns) => [Restaurant])
