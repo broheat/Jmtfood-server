@@ -6,7 +6,8 @@ import { PrismaService } from 'src/prisma.service';
 import { UserModule } from 'src/user/user.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-
+import { APP_GUARD } from '@nestjs/core';
+import { GqlAuthGuard } from './auth.guard';
 @Module({
   imports: [
     UserModule,
@@ -16,7 +17,13 @@ import { JwtModule } from '@nestjs/jwt';
       signOptions: { expiresIn: '1 day' },
     }),
   ],
-  providers: [JwtStrategy, AuthResolvers, AuthService, PrismaService],
-  exports: [AuthService, JwtModule],
+  providers: [
+    { provide: APP_GUARD, useClass: GqlAuthGuard },
+    JwtStrategy,
+    AuthResolvers,
+    AuthService,
+    PrismaService,
+  ],
+  exports: [JwtModule, PassportModule],
 })
 export class AuthModule {}

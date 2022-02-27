@@ -34,7 +34,7 @@ type GetUser {
 
 type Query {
   restaurant(id: String!): Restaurant!
-  seeRestaurants(area: String!, city: String!, foodType: String!, mainFood: String!): SeeRestaurants!
+  seeRestaurants(area: String, city: String, foodType: String, mainFood: String): SeeRestaurants!
   getUser: GetUser!
 }
 

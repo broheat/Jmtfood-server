@@ -13,10 +13,10 @@ export class RestaurantResolvers {
 
   @Query((returns) => SeeRestaurants)
   async seeRestaurants(
-    @Args('area') area: string,
-    @Args('city') city: string,
-    @Args('foodType') foodType: string,
-    @Args('mainFood') mainFood: string,
+    @Args('area', { nullable: true }) area?: string,
+    @Args('city', { nullable: true }) city?: string,
+    @Args('foodType', { nullable: true }) foodType?: string,
+    @Args('mainFood', { nullable: true }) mainFood?: string,
   ) {
     return this.restaurantService.seeRestaurants(
       area,
