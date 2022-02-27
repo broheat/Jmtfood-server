@@ -18,15 +18,9 @@ import { AuthModule } from './auth/auth.module';
       playground: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
       autoSchemaFile: 'schema.gql',
-      context: ({ req, connection }) => {
-        if (req) {
-          const token = req.headers.authorization;
-          return { ...req, token };
-        } else {
-          return connection;
-        }
-      },
+      context: ({ req }) => ({ req }),
     }),
+
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: process.env.NODE_ENV === 'dev' ? '.env.dev' : '.env.test',

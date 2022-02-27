@@ -11,13 +11,13 @@ export class RestaurantResolvers {
     return this.restaurantService.restaurant(args);
   }
 
-  @Query((returns) => SeeRestaurants)
+  @Query((returns) => [Restaurant])
   async seeRestaurants(
     @Args('area', { nullable: true }) area?: string,
     @Args('city', { nullable: true }) city?: string,
     @Args('foodType', { nullable: true }) foodType?: string,
     @Args('mainFood', { nullable: true }) mainFood?: string,
-  ) {
+  ): Promise<Restaurant[]> {
     return this.restaurantService.seeRestaurants(
       area,
       city,
