@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
+import { CheckNewUer } from './user.model';
 
 @Injectable()
 export class UserService {
@@ -13,7 +14,7 @@ export class UserService {
     return this.prisma.user.findUnique({ where: { kakaoId } });
   }
 
-  async checkNewUser(kakaoId: number): Promise<object | null> {
+  async checkNewUser(kakaoId: number): Promise<CheckNewUer | null> {
     try {
       const user = await this.getUserByKakaoId(kakaoId);
       if (user) {

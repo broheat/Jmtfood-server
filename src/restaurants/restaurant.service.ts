@@ -15,10 +15,10 @@ export class RestaurantService {
   }
 
   async seeRestaurants(
-    area?: string,
-    city?: string,
-    foodType?: string,
-    mainFood?: string,
+    area: string | null,
+    city: string | null,
+    foodType: string | null,
+    mainFood: string | null,
   ): Promise<Restaurant[]> {
     return this.prisma.restaurant.findMany({
       where: {

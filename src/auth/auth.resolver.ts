@@ -2,7 +2,7 @@ import { Resolver, Mutation, Args } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
 
 @Resolver('Auth')
-export class AuthResolvers {
+export class AuthResolver {
   constructor(private authService: AuthService) {}
 
   @Mutation((returns) => String)

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
 import fetch from 'node-fetch-commonjs';
+import { CheckNewUer } from 'src/user/user.model';
 
 @Injectable()
 export class AuthService {
@@ -10,12 +11,6 @@ export class AuthService {
     private userService: UserService,
   ) {}
 
-  async getAccessToken({ user }) {
-    return await this.jwtService.sign(
-      { sub: user.id },
-      { secret: process.env.SECRET_KEY, expiresIn: '1h' },
-    );
-  }
   async setRefreshToken({ user, res }) {
     const refreshToken = this.jwtService.sign(
       { sub: user.id },
@@ -33,9 +28,7 @@ export class AuthService {
 
     try {
       if (response.status === 200) {
-        const user: object = await this.userService.checkNewUser(
-          JSON.parse(result).id,
-        );
+        const user = await this.userService.checkNewUser(JSON.parse(result).id);
         return await this.createToken(user);
       } else {
         return 'kakao login open API error: ' + response.statusText;
@@ -44,7 +37,10 @@ export class AuthService {
       throw new Error(error);
     }
   }
-  async createToken(user: object): Promise<string> {
-    return this.jwtService.sign({ user });
+  async createToken(user: CheckNewUer): Promise<string> {
+    return await this.jwtService.sign(
+      { sub: user },
+      { secret: process.env.SECRET_KEY, expiresIn: '1h' },
+    );
   }
 }

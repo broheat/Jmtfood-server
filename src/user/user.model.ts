@@ -23,3 +23,12 @@ export class GetUser {
   @Field((type) => User)
   getUser: User;
 }
+
+@ObjectType()
+export class CheckNewUer {
+  @Field()
+  status: string;
+
+  @Field()
+  userId: number;
+}
